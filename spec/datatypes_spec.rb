@@ -76,6 +76,37 @@ describe "Scope" do
 
 end
 
+describe "Collection" do
+
+  before(:each) do
+    node_string = '{ "things": {"first_thing": {"numericAmount": 7794880, "unitOfMeasurement": "tonnes CO2e"}, "second_thing": {"numericAmount": 7131984, "unitOfMeasurement": "tonnes CO2e"} } }'
+    node_json = JSON.parse(node_string)
+
+    @things = OpenCarbon::DataTypes::Collection.new(node_json, 'things')
+  end
+
+  it "can get items" do
+    @things.collection.size.should eq 2
+  end
+
+  it "can get the name for a particular item" do
+    @things.collection.first.name.should eq "first_thing"
+  end
+
+  it "can get an item from the collection by name" do
+    thing = @things.find_by_name("second_thing")
+    thing.should_not be_nil
+    thing.value.should eq 7131984
+  end
+
+  it "can handle finding non-existent items" do
+    # look for an item that is not contained in the collection
+    thing = @things.find_by_name("a_non_existent_thing")
+    thing.should be_nil
+  end
+
+end
+
 describe "Scopes" do
 
   before(:each) do
@@ -87,22 +118,6 @@ describe "Scopes" do
 
   it "can get scopes" do
     @scopes.collection.size.should eq 2
-  end
-
-  it "can get the name for a particular scope" do
-    @scopes.collection.first.name.should eq "scope-1"
-  end
-
-  it "can get a scope by name" do
-    scope = @scopes.find_by_name("scope-2")
-    scope.should_not be_nil
-    scope.value.should eq 7131984
-  end
-
-  it "can handle finding non-existent scopes" do
-    # look for a scope that doesn't exist
-    scope = @scopes.find_by_name("scope-10")
-    scope.should be_nil
   end
 
 end

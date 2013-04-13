@@ -1,5 +1,3 @@
-require 'json'
-
 module OpenCarbon
 
   module DataTypes
