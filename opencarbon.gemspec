@@ -14,4 +14,9 @@ Gem::Specification.new do |gem|
   gem.name          = "opencarbon"
   gem.require_paths = ["lib"]
   gem.version       = Opencarbon::VERSION
+
+  gem.add_dependency 'debugger'
+  gem.add_dependency 'rspec'
+  gem.add_dependency 'json'
+
 end

@@ -1,9 +1,6 @@
 require "opencarbon/version"
 
 module Opencarbon
-
-  def blah
-    puts "bloop"
-  end
+  require 'opencarbon/city_report'
 
 end
