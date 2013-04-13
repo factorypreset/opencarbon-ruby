@@ -6,7 +6,7 @@ module OpenCarbon
 
     attr_accessor :data
 
-    # Load an opencarbon city report file and create ruby objects
+    # Load an opencarbon city JSON report file and create ruby objects
     #
     # @param filename [String]
     def initialize(filename)
@@ -27,6 +27,27 @@ module OpenCarbon
     # Return document reporting period
     def reporting_period
       self.data['reportingPeriod']
+    end
+
+    # Document reporting entity (primary container for disclosure data)
+    def reporting_entity
+      self.data['reportingEntity']
+    end
+
+    def name
+      self.reporting_entity['name']
+    end
+
+    def sources
+      self.reporting_entity['sources']
+    end
+
+    def profile
+      self.reporting_entity['profile']
+    end
+
+    def goals
+      self.reporting_entity['goals']
     end
 
   end
