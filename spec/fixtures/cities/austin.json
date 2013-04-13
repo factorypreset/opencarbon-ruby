@@ -90,6 +90,7 @@
     "emissionSources": {
       "municipal": {
         "baseline": {
+          "year": "2007",
           "numericAmount": 400000,
           "unitOfMeasurement": "tonnes CO2e"
         },
@@ -114,6 +115,7 @@
       },
       "community": {
         "baseline": {
+          "baseline": "2007",
           "numericAmount": 12000000,
           "unitOfMeasurement": "tonnes CO2e"
         },
