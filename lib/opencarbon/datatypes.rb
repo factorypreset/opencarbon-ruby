@@ -2,8 +2,23 @@ module OpenCarbon
 
   module DataTypes
   
+    # Generic field datatype
+    class NamedField
+
+      attr_accessor :node, :name
+
+      # Constructor
+      #
+      # param node [JSON element]
+      def initialize(node)
+        self.node = node
+        self.name = self.node.keys.first
+      end
+
+    end
+
     # Generic datatype for numeric data with a unit of measure
-    class NumericFieldWithUnits
+    class NumericFieldWithUnits < NamedField
 
       attr_accessor :node, :name, :value, :units
 
@@ -70,8 +85,9 @@ module OpenCarbon
       #
       # param node [JSON element]
       def <<(node)
-        scope = Scope.new(node)
-        self.collection << scope
+        # this is probably too generic to be useful... should be overridden in subclass
+        item = NamedField.new(node)
+        self.collection << item
       end
 
       # Get the named element from collection
@@ -88,6 +104,44 @@ module OpenCarbon
 
     end
 
+    # Generic list item datatype
+    class ListItem
+
+      def initialize(node)
+        self.node = node
+        # TODO figure out if anything else is needed here...
+      end
+
+    end
+
+    # Generic list datatype
+    class NamedList
+
+      attr_accessor :node, :list
+
+      def initialize(node, name)
+        self.node = node
+        self.list = []
+
+        self.process(name)
+      end
+
+      def process(name)
+        self.node[name].each do |item|
+          self << item
+        end
+      end
+
+      # Append to list
+      #
+      # param node [JSON element]
+      def <<(node)
+        list_item = ListItem.new(node)
+        self.list << list_item
+      end
+
+    end
+
     # A collection of Scopes
     class Scopes < Collection
 
@@ -100,10 +154,49 @@ module OpenCarbon
         self.process(base_element)
       end
 
+      # Append to collection
+      #
+      # param node [JSON element]
+      def <<(node)
+        scope = Scope.new(node)
+        self.collection << scope
+      end
+
     end
 
     # Source attribution
-    class Source
+    class Source < ListItem
+
+      attr_accessor :node, :title, :author, :url
+
+      # Constructor
+      #
+      # param node [JSON element]
+      def initialize(node)
+        self.node = node
+        self.title = node['title']
+        self.author = node['author']
+        self.url = node['url']
+      end
+
+    end
+
+    # A collection of Sources
+    class Sources < NamedList
+
+      def initialize(node)
+        self.node = node
+        self.list = []
+        self.process('sources')
+      end
+
+      # Append to list
+      #
+      # param node [JSON element]
+      def <<(node)
+        source = Source.new(node)
+        self.list << source
+      end
 
     end
 

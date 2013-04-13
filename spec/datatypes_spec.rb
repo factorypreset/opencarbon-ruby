@@ -1,5 +1,20 @@
 require 'spec_helper'
 
+describe "NamedField" do
+
+  before(:each) do
+    node_string = '{ "a_field": {"some_datapoint": 20}}'
+    node_json = JSON.parse(node_string)
+
+    @node = OpenCarbon::DataTypes::NamedField.new(node_json)
+  end
+
+  it "can get the node name" do
+    @node.name.should eq "a_field"
+  end
+
+end
+
 describe "NumericFieldWithUnits" do
   
   before(:each) do
@@ -96,7 +111,7 @@ describe "Collection" do
   it "can get an item from the collection by name" do
     thing = @things.find_by_name("second_thing")
     thing.should_not be_nil
-    thing.value.should eq 7131984
+    thing.name.should eq "second_thing"
   end
 
   it "can handle finding non-existent items" do
@@ -116,8 +131,61 @@ describe "Scopes" do
     @scopes = OpenCarbon::DataTypes::Scopes.new(node_json)
   end
 
-  it "can get scopes" do
+  it "can get a list of scopes" do
     @scopes.collection.size.should eq 2
+  end
+
+end
+
+describe "Source" do
+
+  before(:each) do
+    node_string = '{
+        "title": "CDP 2012 CDP Cities 2012 Information Request",
+        "author": "City of Austin",
+        "url": "http://www.austintexas.gov/sites/default/files/files/Sustainability/Climate/ProgrammeResponse_2010Final.pdf"
+      }'
+    node_json = JSON.parse(node_string)
+
+    @source = OpenCarbon::DataTypes::Source.new(node_json)
+  end
+
+  it "can get a source document's title" do
+    @source.title.should eq "CDP 2012 CDP Cities 2012 Information Request"
+  end
+
+  it "can get a source document's author" do
+    @source.author.should eq "City of Austin"
+  end
+
+  it "can get a source document's url" do
+    @source.url.should eq "http://www.austintexas.gov/sites/default/files/files/Sustainability/Climate/ProgrammeResponse_2010Final.pdf"
+  end
+
+end
+
+describe "Sources" do
+
+  before(:each) do
+    node_string = '{"sources": [
+      {
+        "title": "CDP 2012 CDP Cities 2012 Information Request",
+        "author": "City of Austin",
+        "url": "http://www.austintexas.gov/sites/default/files/files/Sustainability/Climate/ProgrammeResponse_2010Final.pdf"
+      },
+      {
+        "title": "Another source doc",
+        "author": "An author",
+        "url": "http://www.example.org/some_doc.pdf"
+      }
+    ]}'
+    node_json = JSON.parse(node_string)
+
+    @sources = OpenCarbon::DataTypes::Sources.new(node_json)
+  end
+
+  it "can get a list of sources" do
+    @sources.list.size.should eq 2
   end
 
 end
