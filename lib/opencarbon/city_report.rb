@@ -50,6 +50,21 @@ module OpenCarbon
       self.reporting_entity['goals']
     end
 
+    # Emission sources
+    def emission_sources
+      self.reporting_entity['emissionSources']
+    end
+
+    def municipal_emissions
+      self.emission_sources['municipal']
+    end
+
+    def community_emissions
+      self.emission_sources['community']
+    end
+
+
+
   end
 
 end

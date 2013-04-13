@@ -36,6 +36,17 @@ module OpenCarbon
       @report.goals['community']['targets'].size.should eq 2
     end
 
+    it "can list municipal and community emission goals" do
+      @report.emission_sources.size.should eq 2
+      @report.emission_sources['municipal'].should_not be_nil
+      @report.emission_sources['community'].should_not be_nil
+    end
+
+    it "can get total municipal and community emissions" do
+      @report.municipal_emissions['total']['numericAmount'].should eq 449980  # TODO: wrap numericAmount fields in a generic class
+      @report.community_emissions['total']['numericAmount'].should eq 14926864
+    end
+
   end
 
 end
