@@ -1,24 +1,28 @@
-# Opencarbon::Ruby
+# Opencarbon-Ruby
 
-TODO: Write a gem description
+A ruby interface to the OpenCarbon disclosure document format.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'opencarbon'
+  gem 'opencarbon'
 
 And then execute:
 
-    $ bundle
+  $ bundle
 
 Or install it yourself as:
 
-    $ gem install opencarbon
+  $ gem install opencarbon
 
 ## Usage
 
 TODO: Write usage instructions here
+
+## Run tests
+
+  bundle exec rspec spec/
 
 ## Contributing
 
