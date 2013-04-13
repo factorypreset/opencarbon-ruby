@@ -1,4 +1,4 @@
-# Opencarbon-Ruby
+# opencarbon-ruby
 
 A ruby interface to the OpenCarbon disclosure document format.
 
@@ -6,15 +6,15 @@ A ruby interface to the OpenCarbon disclosure document format.
 
 Add this line to your application's Gemfile:
 
-  gem 'opencarbon'
+    gem 'opencarbon'
 
 And then execute:
 
-  $ bundle
+    $ bundle
 
 Or install it yourself as:
 
-  $ gem install opencarbon
+    $ gem install opencarbon
 
 ## Usage
 
@@ -22,7 +22,7 @@ TODO: Write usage instructions here
 
 ## Run tests
 
-  bundle exec rspec spec/
+    $ bundle exec rspec spec/
 
 ## Contributing
 
