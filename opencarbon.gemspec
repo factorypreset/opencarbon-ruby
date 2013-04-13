@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "opencarbon"
   gem.require_paths = ["lib"]
-  gem.version       = Opencarbon::VERSION
+  gem.version       = OpenCarbon::VERSION
 
   gem.add_dependency 'debugger'
   gem.add_dependency 'rspec'

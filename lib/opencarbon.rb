@@ -1,6 +1,6 @@
 require "opencarbon/version"
 
-module Opencarbon
+module OpenCarbon
   require 'opencarbon/city_report'
 
 end
