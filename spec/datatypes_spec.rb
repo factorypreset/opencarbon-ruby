@@ -189,3 +189,33 @@ describe "Sources" do
   end
 
 end
+
+describe "Profile" do
+
+  before(:each) do
+    node_string = '{
+      "profile": {
+        "geographicArea": 770,
+        "geographicAreaUnits": "sq km",
+        "population": 820611,
+        "climateZone": "US Zone 5",
+        "annualHeatingDegreeDays": 1688,
+        "annualCoolingDegreeDays": 3016
+      }
+    }'
+    node_json = JSON.parse(node_string)
+
+    @profile = OpenCarbon::DataTypes::Profile.new(node_json)
+  end
+
+  it "can get profile data" do
+    @profile.geographic_area.should eq 770
+    @profile.geographic_area_units.should eq "sq km"
+    @profile.geographic_area_pretty.should eq "770 sq km"
+    @profile.population.should eq 820611
+    @profile.climate_zone.should eq "US Zone 5"
+    @profile.annual_heating_degree_days.should eq 1688
+    @profile.annual_cooling_degree_days.should eq 3016
+  end
+
+end
